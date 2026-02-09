@@ -1,0 +1,32 @@
+<div class="flex flex-col rounded-2x1 shadow-sm border border-slate-200 overflow-hidden hover:shadow-x1 transition-shadow duration-300">
+  <div class="relative h-48">
+
+    <!--PROPERTY BINDING-->
+    <img [src]="servicio.imagen" [alt]="servicio.nombre"
+         [class.grayscale]="!servicio.estado"
+         class="w-full h-full object-cover" />
+
+    <!--DIRECTIVA if, MOSTRAR U OCULTAR ELEMENTOS HTML de acuerdo a una condición-->
+    @if (!servicio.estado) {
+      <div class="absolute inset-0 bg-slate-900/40 flex items-center justify-center">
+        <span class="bg-white text-slate-900 px-3 py-1 rounded-full text-xs font-bold uppercase">Próximamente</span>
+      </div>
+    }
+  </div>
+
+  <div class="p-6">
+    <h3 class="text-xl font-bold text-slate-900">{{servicio.nombre}}</h3>
+    <p class="mt-3 text-slate-500 text-sm leading-6">{{servicio.descripcion}}</p>
+
+    <p class="mt-4 text-lg font-bold text-indigo-700">
+      {{ servicio.precio | currency:'USD':'symbol':'1.0-0' }}
+    </p>
+
+    <button
+      (click)="seleccionarServicio()"
+      [disabled]="!servicio.estado"
+      class="mt-6 w-full py-2 px-4 rounded-lg font-medium transition-all disabled:bg-slate-100 disabled:text-slate-400 enabled:bg-indigo-50 enabled:text-indigo-700 enabled:hover:bg-indigo-100">
+      {{servicio.estado ? 'Me interesa este servicio' : 'No disponible'}}
+    </button>
+  </div>
+</div>
